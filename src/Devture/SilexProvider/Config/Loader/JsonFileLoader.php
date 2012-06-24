@@ -20,9 +20,12 @@ class JsonFileLoader {
 	}
 
 	private function loadFile($path) {
+		if (! file_exists($path)) {
+			throw new CannotLoadException('Cannot load file: ' . $path);
+		}
 		$config = json_decode(file_get_contents($path), 1);
 		if ($config === null) {
-			throw new CannotLoadException('Cannot load file: ' . $path);
+			throw new CannotLoadException('Cannot decode file contents: ' . $path);
 		}
 		return $config;
 	}
