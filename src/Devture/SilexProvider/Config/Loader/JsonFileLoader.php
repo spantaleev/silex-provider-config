@@ -36,7 +36,7 @@ class JsonFileLoader {
 				$config[$key] = $this->replaceParameters($value, $parameters);
 			} else if (is_string($value) && strpos($value, '%') === 0) {
 				$parameterKey = substr($value, 1, strlen($value) - 2);
-				if (!isset($parameters[$parameterKey])) {
+				if (!array_key_exists($parameterKey, $parameters)) {
 					throw new Exception('Undefined parameter ' . $parameterKey . ' -- `' . $value . '`');
 				}
 				$config[$key] = $parameters[$parameterKey];
