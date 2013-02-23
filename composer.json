@@ -1,6 +1,8 @@
 {
 	"name": "devture/silex-provider-config",
-	"description": "Silex provider for config files parsing",
+	"description": "Silex provider for configuration management",
+	"keywords": ["silex", "config"],
+	"license": "BSD",
 	"authors": [
 		{
 			"name": "Slavi Pantaleev",
