@@ -1,7 +1,7 @@
 <?php
 namespace Devture\SilexProvider\Config\Loader;
+
 use Devture\SilexProvider\Config\Exception;
-use Devture\SilexProvider\Config\Exception\CannotLoadException;
 
 class JsonFileLoader {
 
@@ -20,12 +20,12 @@ class JsonFileLoader {
 	}
 
 	private function loadFile($path) {
-		if (! file_exists($path)) {
-			throw new CannotLoadException('Cannot load file: ' . $path);
+		if (!file_exists($path)) {
+			throw new Exception('Cannot load file: ' . $path);
 		}
 		$config = json_decode(file_get_contents($path), 1);
 		if ($config === null) {
-			throw new CannotLoadException('Cannot decode file contents: ' . $path);
+			throw new Exception('Cannot decode file contents: ' . $path);
 		}
 		return $config;
 	}
