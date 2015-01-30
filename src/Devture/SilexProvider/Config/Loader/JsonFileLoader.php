@@ -12,8 +12,11 @@ class JsonFileLoader {
 		}
 
 		$parameters = array();
-		foreach ($parameterFiles as $filePath) {
-			$parameters = array_replace($parameters, $this->loadFile($filePath));
+		foreach ($parameterFiles as $parametersOrPath) {
+			if (is_string($parametersOrPath)) {
+				$parametersOrPath = $this->loadFile($parametersOrPath);
+			}
+			$parameters = array_replace($parameters, $parametersOrPath);
 		}
 
 		return $this->replaceParameters($config, $parameters);

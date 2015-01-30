@@ -13,6 +13,9 @@ Moving some configuration values outside of the config skeleton allows config fi
 to be commited to version control and remain identical everywhere, while leaving certain "parameters"
 up for customization.
 
+*Parameter files* can be provided to the library as file paths or as PHP arrays of values.
+The latter is useful whenever you want to grab some environment variables.
+
 Example configuration::
 
 	//config.json
@@ -39,7 +42,12 @@ Usage::
 	$app->register(new \Devture\SilexProvider\Config\ServicesProvider());
 
 	$configFiles = array('/path/to/config.json');
-	$parameterFiles = array('/path/to/parameters.json');
+
+    //Each is either a path to a parameter file (JSON) or an array of parameters (key => value dictionary).
+	$parameterFiles = array(
+        '/path/to/parameters.json',
+        array('something' => 'overriden value for something'),
+    );
 
 	$app['config'] = $app['devture_config.loader']->load($configFiles, $parameterFiles);
 
@@ -48,7 +56,7 @@ Result::
 
 	$app['config'] = array(
 		'key' => 'value',
-		'something' => 'value for something',
+		'something' => 'overriden value for something',
 		'websites' => array(
 			'first' => 'http://devture.com/',
 			'second' => 'http://github.com/spantaleev',
@@ -59,5 +67,5 @@ Result::
 Limitations
 ------------
 
-* Only JSON config files are supported (intentional)
+* Only JSON config files an inline arrays are supported (intentional)
 * Partial parameter replacements are not supported (`"storage_path": "%base_path%/storage"`) - may be implemented later
