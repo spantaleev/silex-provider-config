@@ -1,19 +1,12 @@
 <?php
 namespace Devture\SilexProvider\Config;
 
-use Silex\Application;
-use Silex\ServiceProviderInterface;
+class ServicesProvider implements \Pimple\ServiceProviderInterface {
 
-class ServicesProvider implements ServiceProviderInterface {
-
-	public function register(Application $app) {
-		$app['devture_config.loader'] = $app->share(function () {
+	public function register(\Pimple\Container $container) {
+		$container['devture_config.loader'] = function () {
 			return new Loader\JsonFileLoader();
-		});
-	}
-
-	public function boot(Application $app) {
-
+		};
 	}
 
 }
